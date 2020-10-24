@@ -1,0 +1,808 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4265E10A-9E31-4F24-9AD1-084F47BAEB22}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Smart_FTY</RootNamespace>
+    <AssemblyName>RUNPU</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>iCon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AwesomeShapeControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\AwesomeShapeControl.dll</HintPath>
+    </Reference>
+    <Reference Include="AxInterop.FPSpreadADO, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\AxInterop.FPSpreadADO.dll</HintPath>
+    </Reference>
+    <Reference Include="COM, Version=1.0.6613.15722, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\IP Smart Factory - Copy\IP_DSF\bin\Debug\COM.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.Charts.v17.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Dashboard.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.Dashboard.v17.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.Data.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.DataAccess.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.DataAccess.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Mvvm.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.Mvvm.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.Printing.v17.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.Utils.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.XtraBars.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.XtraCharts.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v17.1.UI, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.XtraCharts.v17.1.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v17.1.Wizard, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.XtraCharts.v17.1.Wizard.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.XtraEditors.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGauges.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.XtraGauges.v17.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGauges.v17.1.Win, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.XtraGauges.v17.1.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.XtraGrid.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.XtraLayout.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.XtraNavBar.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraPdfViewer.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.XtraPdfViewer.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.XtraPrinting.v17.1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\DevExpress.XtraTreeList.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.FPSpreadADO, Version=8.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\Debug\Interop.FPSpreadADO.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.Microsoft.Office.Core, Version=2.3.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\Debug\Interop.Microsoft.Office.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="LocationBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\LocationBox.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.dll</HintPath>
+    </Reference>
+    <Reference Include="MSDATASRC, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>C:\Windows\assembly\GAC\MSDATASRC\7.0.3300.0__b03f5f7f11d50a3a\MSDATASRC.dll</HintPath>
+    </Reference>
+    <Reference Include="netchartdir_cp, Version=5.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\netchartdir_cp.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="ShapeControl, Version=1.0.6374.27716, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\ShapeControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Data.OracleClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classlib\A1Panel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Classlib\A1Panel.Designer.cs">
+      <DependentUpon>A1Panel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classlib\A1PanelGraphics.cs" />
+    <Compile Include="Classlib\ComCtl.cs" />
+    <Compile Include="Classlib\ComVar.cs" />
+    <Compile Include="Source_PU\HR\FRM_SMT_PU_TOPO_DAILY.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\HR\FRM_SMT_PU_TOPO_DAILY.designer.cs">
+      <DependentUpon>FRM_SMT_PU_TOPO_DAILY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\HR\FRM_SMT_PU_TOPO_WEEKLY.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\HR\FRM_SMT_PU_TOPO_WEEKLY.designer.cs">
+      <DependentUpon>FRM_SMT_PU_TOPO_WEEKLY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FORM_SMT_PU_LEADTIME.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FORM_SMT_PU_LEADTIME.designer.cs">
+      <DependentUpon>FORM_SMT_PU_LEADTIME.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SampleForm\SampleFrm2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SampleForm\SampleFrm2.Designer.cs">
+      <DependentUpon>SampleFrm2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\HR\FRM_SMT_B_HR_ABSENT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\HR\FRM_SMT_B_HR_ABSENT.designer.cs">
+      <DependentUpon>FRM_SMT_B_HR_ABSENT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FORM_LEADTIME_COMP_DMP.CS">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FORM_LEADTIME_COMP_DMP.designer.cs">
+      <DependentUpon>FORM_LEADTIME_COMP_DMP.CS</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FORM_SMT_PU_LEADTIME_MONTH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FORM_SMT_PU_LEADTIME_MONTH.designer.cs">
+      <DependentUpon>FORM_SMT_PU_LEADTIME_MONTH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FORM_SMT_PU_LEADTIME_WEEK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FORM_SMT_PU_LEADTIME_WEEK.designer.cs">
+      <DependentUpon>FORM_SMT_PU_LEADTIME_WEEK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FORM_SMT_PU_LEADTIME_YEAR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FORM_SMT_PU_LEADTIME_YEAR.designer.cs">
+      <DependentUpon>FORM_SMT_PU_LEADTIME_YEAR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FRM_BOTTOM_INV_SET_ANALYSIS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FRM_BOTTOM_INV_SET_ANALYSIS.Designer.cs">
+      <DependentUpon>FRM_BOTTOM_INV_SET_ANALYSIS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FRM_SMT_PU_FSS_INVENTORY.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FRM_SMT_PU_FSS_INVENTORY.designer.cs">
+      <DependentUpon>FRM_SMT_PU_FSS_INVENTORY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FRM_SMT_PU_INV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Invetory\FRM_SMT_PU_INV.designer.cs">
+      <DependentUpon>FRM_SMT_PU_INV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Machinery\FRM_PU_TEMP_DAS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Machinery\FRM_PU_TEMP_DAS.designer.cs">
+      <DependentUpon>FRM_PU_TEMP_DAS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Machinery\FRM_SMT_PU_OEE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Machinery\FRM_SMT_PU_OEE.designer.cs">
+      <DependentUpon>FRM_SMT_PU_OEE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Machinery\FRM_SMT_IP_OEE_YEAR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Machinery\FRM_SMT_IP_OEE_YEAR.designer.cs">
+      <DependentUpon>FRM_SMT_IP_OEE_YEAR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Main\Form_Home_PU.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Main\Form_Home_PU.designer.cs">
+      <DependentUpon>Form_Home_PU.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Main\FORM_PU_KPI_PERFOMANCE.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Main\FORM_PU_KPI_PERFOMANCE.designer.cs">
+      <DependentUpon>FORM_PU_KPI_PERFOMANCE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Production\FORM_PU_MOLD_REPAIR_WEEKLY.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Production\FORM_PU_MOLD_REPAIR_WEEKLY.designer.cs">
+      <DependentUpon>FORM_PU_MOLD_REPAIR_WEEKLY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Production\FORM_MOLD_ACTUAL_PLAN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Production\FORM_MOLD_ACTUAL_PLAN.designer.cs">
+      <DependentUpon>FORM_MOLD_ACTUAL_PLAN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Production\FORM_SMT_B_MOLD_ACTUAL_PLAN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Production\FORM_SMT_B_MOLD_ACTUAL_PLAN.designer.cs">
+      <DependentUpon>FORM_SMT_B_MOLD_ACTUAL_PLAN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Production\FORM_SMT_B_MOLD_LAYOUT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Production\FORM_SMT_B_MOLD_LAYOUT.designer.cs">
+      <DependentUpon>FORM_SMT_B_MOLD_LAYOUT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Production\FORM_SMT_PU_MOLD_ACTUAL_PLAN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Production\FORM_SMT_PU_MOLD_ACTUAL_PLAN.designer.cs">
+      <DependentUpon>FORM_SMT_PU_MOLD_ACTUAL_PLAN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Production\FORM_SMT_PU_MOLD_OVERHAUL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Production\FORM_SMT_PU_MOLD_OVERHAUL.designer.cs">
+      <DependentUpon>FORM_SMT_PU_MOLD_OVERHAUL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Production\FORM_SMT_PU_MOLD_PRODUCTION.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Production\FORM_SMT_PU_MOLD_PRODUCTION.designer.cs">
+      <DependentUpon>FORM_SMT_PU_MOLD_PRODUCTION.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Production\FRM_SMT_BTS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Production\FRM_SMT_BTS.Designer.cs">
+      <DependentUpon>FRM_SMT_BTS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Production\FRM_SMT_BTS_YEAR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Production\FRM_SMT_BTS_YEAR.Designer.cs">
+      <DependentUpon>FRM_SMT_BTS_YEAR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Production\FRM_SMT_PU_PROD_DAILY.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Production\FRM_SMT_PU_PROD_DAILY.designer.cs">
+      <DependentUpon>FRM_SMT_PU_PROD_DAILY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Production\FRM_SMT_PU_PROD_MATERIAL_DAILY.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Production\FRM_SMT_PU_PROD_MATERIAL_DAILY.designer.cs">
+      <DependentUpon>FRM_SMT_PU_PROD_MATERIAL_DAILY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Production\FRM_SMT_PU_PROD_MATERIAL_MONTH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Production\FRM_SMT_PU_PROD_MATERIAL_MONTH.designer.cs">
+      <DependentUpon>FRM_SMT_PU_PROD_MATERIAL_MONTH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Production\FRM_SMT_PU_PROD_MONTH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Production\FRM_SMT_PU_PROD_MONTH.designer.cs">
+      <DependentUpon>FRM_SMT_PU_PROD_MONTH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Production\FRM_SMT_PU_PROD_YEAR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Production\FRM_SMT_PU_PROD_YEAR.designer.cs">
+      <DependentUpon>FRM_SMT_PU_PROD_YEAR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FORM_PH_DEFFECTIVE_STATUS_YEAR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FORM_PH_DEFFECTIVE_STATUS_YEAR.designer.cs">
+      <DependentUpon>FORM_PH_DEFFECTIVE_STATUS_YEAR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FORM_PH_DEFFECTIVE_STATUS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FORM_PH_DEFFECTIVE_STATUS.designer.cs">
+      <DependentUpon>FORM_PH_DEFFECTIVE_STATUS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FORM_OS_DEFFECTIVE_STATUS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FORM_OS_DEFFECTIVE_STATUS.designer.cs">
+      <DependentUpon>FORM_OS_DEFFECTIVE_STATUS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FORM_OS_DEFFECTIVE_STATUS_YEAR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FORM_OS_DEFFECTIVE_STATUS_YEAR.designer.cs">
+      <DependentUpon>FORM_OS_DEFFECTIVE_STATUS_YEAR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FORM_PU_DEFFECTIVE_STATUS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FORM_PU_DEFFECTIVE_STATUS.designer.cs">
+      <DependentUpon>FORM_PU_DEFFECTIVE_STATUS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FORM_PU_DEFFECTIVE_STATUS_YEAR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FORM_PU_DEFFECTIVE_STATUS_YEAR.designer.cs">
+      <DependentUpon>FORM_PU_DEFFECTIVE_STATUS_YEAR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FRM_PH_ANALYSIS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FRM_PH_ANALYSIS.designer.cs">
+      <DependentUpon>FRM_PH_ANALYSIS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FRM_PU_OSD_EXTERNAL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FRM_PU_OSD_EXTERNAL.designer.cs">
+      <DependentUpon>FRM_PU_OSD_EXTERNAL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FORM_SMT_B_EXTERNAL_OSD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FORM_SMT_B_EXTERNAL_OSD.designer.cs">
+      <DependentUpon>FORM_SMT_B_EXTERNAL_OSD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FRM_SMT_PU_OSD_MONTH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FRM_SMT_PU_OSD_MONTH.designer.cs">
+      <DependentUpon>FRM_SMT_PU_OSD_MONTH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FRM_SMT_PU_OSD_YEAR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source_PU\Quality\FRM_SMT_PU_OSD_YEAR.designer.cs">
+      <DependentUpon>FRM_SMT_PU_OSD_YEAR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\UC\UC_DWMY.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source_PU\UC\UC_DWMY.designer.cs">
+      <DependentUpon>UC_DWMY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\UC\UC_MONTH_SELECTION.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source_PU\UC\UC_MONTH_SELECTION.Designer.cs">
+      <DependentUpon>UC_MONTH_SELECTION.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\UC\UC_Temp_PU_AUTO.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source_PU\UC\UC_Temp_PU_AUTO.designer.cs">
+      <DependentUpon>UC_Temp_PU_AUTO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\UC\UC_Temp_PU_MANUAL.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source_PU\UC\UC_Temp_PU_MANUAL.designer.cs">
+      <DependentUpon>UC_Temp_PU_MANUAL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\UC\UC_YEAR_SELECTION.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source_PU\UC\UC_YEAR_SELECTION.Designer.cs">
+      <DependentUpon>UC_YEAR_SELECTION.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source_PU\UC\User_Chart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source_PU\UC\User_Chart.designer.cs">
+      <DependentUpon>User_Chart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classlib\Globals.cs" />
+    <Compile Include="Form_Sample2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Sample2.Designer.cs">
+      <DependentUpon>Form_Sample2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Sample.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Sample.Designer.cs">
+      <DependentUpon>Form_Sample.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SampleForm\Form_Parent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SampleForm\Form_Parent.Designer.cs">
+      <DependentUpon>Form_Parent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SampleForm\SampleFrm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SampleForm\SampleFrm1.Designer.cs">
+      <DependentUpon>SampleFrm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Variables.cs" />
+    <Compile Include="WaitForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaitForm1.Designer.cs">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Form_Sample2.resx">
+      <DependentUpon>Form_Sample2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Sample.resx">
+      <DependentUpon>Form_Sample.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\HR\FRM_SMT_PU_TOPO_DAILY.resx">
+      <DependentUpon>FRM_SMT_PU_TOPO_DAILY.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\HR\FRM_SMT_PU_TOPO_WEEKLY.resx">
+      <DependentUpon>FRM_SMT_PU_TOPO_WEEKLY.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Invetory\FORM_SMT_PU_LEADTIME.resx">
+      <DependentUpon>FORM_SMT_PU_LEADTIME.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SampleForm\SampleFrm2.resx">
+      <DependentUpon>SampleFrm2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\HR\FRM_SMT_B_HR_ABSENT.resx">
+      <DependentUpon>FRM_SMT_B_HR_ABSENT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Invetory\FORM_LEADTIME_COMP_DMP.RESX">
+      <DependentUpon>FORM_LEADTIME_COMP_DMP.CS</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Invetory\FORM_SMT_PU_LEADTIME_MONTH.resx">
+      <DependentUpon>FORM_SMT_PU_LEADTIME_MONTH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Invetory\FORM_SMT_PU_LEADTIME_WEEK.resx">
+      <DependentUpon>FORM_SMT_PU_LEADTIME_WEEK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Invetory\FORM_SMT_PU_LEADTIME_YEAR.resx">
+      <DependentUpon>FORM_SMT_PU_LEADTIME_YEAR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Invetory\FRM_BOTTOM_INV_SET_ANALYSIS.resx">
+      <DependentUpon>FRM_BOTTOM_INV_SET_ANALYSIS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Invetory\FRM_SMT_PU_FSS_INVENTORY.resx">
+      <DependentUpon>FRM_SMT_PU_FSS_INVENTORY.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Invetory\FRM_SMT_PU_INV.resx">
+      <DependentUpon>FRM_SMT_PU_INV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Machinery\FRM_PU_TEMP_DAS.resx">
+      <DependentUpon>FRM_PU_TEMP_DAS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Machinery\FRM_SMT_PU_OEE.resx">
+      <DependentUpon>FRM_SMT_PU_OEE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Machinery\FRM_SMT_IP_OEE_YEAR.resx">
+      <DependentUpon>FRM_SMT_IP_OEE_YEAR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Main\Form_Home_PU.resx">
+      <DependentUpon>Form_Home_PU.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Main\FORM_PU_KPI_PERFOMANCE.resx">
+      <DependentUpon>FORM_PU_KPI_PERFOMANCE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Production\FORM_PU_MOLD_REPAIR_WEEKLY.resx">
+      <DependentUpon>FORM_PU_MOLD_REPAIR_WEEKLY.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Production\FORM_MOLD_ACTUAL_PLAN.resx">
+      <DependentUpon>FORM_MOLD_ACTUAL_PLAN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Production\FORM_SMT_B_MOLD_ACTUAL_PLAN.resx">
+      <DependentUpon>FORM_SMT_B_MOLD_ACTUAL_PLAN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Production\FORM_SMT_B_MOLD_LAYOUT.resx">
+      <DependentUpon>FORM_SMT_B_MOLD_LAYOUT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Production\FORM_SMT_PU_MOLD_ACTUAL_PLAN.resx">
+      <DependentUpon>FORM_SMT_PU_MOLD_ACTUAL_PLAN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Production\FORM_SMT_PU_MOLD_OVERHAUL.resx">
+      <DependentUpon>FORM_SMT_PU_MOLD_OVERHAUL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Production\FORM_SMT_PU_MOLD_PRODUCTION.resx">
+      <DependentUpon>FORM_SMT_PU_MOLD_PRODUCTION.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Production\FRM_SMT_BTS.resx">
+      <DependentUpon>FRM_SMT_BTS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Production\FRM_SMT_BTS_YEAR.resx">
+      <DependentUpon>FRM_SMT_BTS_YEAR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Production\FRM_SMT_PU_PROD_DAILY.resx">
+      <DependentUpon>FRM_SMT_PU_PROD_DAILY.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Production\FRM_SMT_PU_PROD_MATERIAL_DAILY.resx">
+      <DependentUpon>FRM_SMT_PU_PROD_MATERIAL_DAILY.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Production\FRM_SMT_PU_PROD_MATERIAL_MONTH.resx">
+      <DependentUpon>FRM_SMT_PU_PROD_MATERIAL_MONTH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Production\FRM_SMT_PU_PROD_MONTH.resx">
+      <DependentUpon>FRM_SMT_PU_PROD_MONTH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Production\FRM_SMT_PU_PROD_YEAR.resx">
+      <DependentUpon>FRM_SMT_PU_PROD_YEAR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Quality\FORM_PH_DEFFECTIVE_STATUS_YEAR.resx">
+      <DependentUpon>FORM_PH_DEFFECTIVE_STATUS_YEAR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Quality\FORM_PH_DEFFECTIVE_STATUS.resx">
+      <DependentUpon>FORM_PH_DEFFECTIVE_STATUS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Quality\FORM_OS_DEFFECTIVE_STATUS.resx">
+      <DependentUpon>FORM_OS_DEFFECTIVE_STATUS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Quality\FORM_OS_DEFFECTIVE_STATUS_YEAR.resx">
+      <DependentUpon>FORM_OS_DEFFECTIVE_STATUS_YEAR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Quality\FORM_PU_DEFFECTIVE_STATUS.resx">
+      <DependentUpon>FORM_PU_DEFFECTIVE_STATUS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Quality\FORM_PU_DEFFECTIVE_STATUS_YEAR.resx">
+      <DependentUpon>FORM_PU_DEFFECTIVE_STATUS_YEAR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Quality\FRM_PH_ANALYSIS.resx">
+      <DependentUpon>FRM_PH_ANALYSIS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Quality\FRM_PU_OSD_EXTERNAL.resx">
+      <DependentUpon>FRM_PU_OSD_EXTERNAL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Quality\FORM_SMT_B_EXTERNAL_OSD.resx">
+      <DependentUpon>FORM_SMT_B_EXTERNAL_OSD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Quality\FRM_SMT_PU_OSD_MONTH.resx">
+      <DependentUpon>FRM_SMT_PU_OSD_MONTH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\Quality\FRM_SMT_PU_OSD_YEAR.resx">
+      <DependentUpon>FRM_SMT_PU_OSD_YEAR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\UC\UC_DWMY.resx">
+      <DependentUpon>UC_DWMY.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\UC\UC_MONTH_SELECTION.resx">
+      <DependentUpon>UC_MONTH_SELECTION.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\UC\UC_Temp_PU_AUTO.resx">
+      <DependentUpon>UC_Temp_PU_AUTO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\UC\UC_Temp_PU_MANUAL.resx">
+      <DependentUpon>UC_Temp_PU_MANUAL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\UC\UC_YEAR_SELECTION.resx">
+      <DependentUpon>UC_YEAR_SELECTION.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source_PU\UC\User_Chart.resx">
+      <DependentUpon>User_Chart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SampleForm\Form_Parent.resx">
+      <DependentUpon>Form_Parent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SampleForm\SampleFrm1.resx">
+      <DependentUpon>SampleFrm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaitForm1.resx">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxFPUSpreadADO">
+      <Guid>{B9411660-10E6-4A53-BE96-7FED334704FA}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="FPUSpreadADO">
+      <Guid>{B9411660-10E6-4A53-BE96-7FED334704FA}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eva.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Back-Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rubber.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="iCon.ico" />
+    <None Include="Resources\under-construction01.png" />
+    <None Include="Resources\under-construction.jpg" />
+    <None Include="Resources\trucks.gif" />
+    <None Include="Resources\trig.jpg" />
+    <None Include="Resources\i_around.jpg" />
+    <None Include="Resources\arrow-165-xxl.png" />
+    <None Include="Resources\arrow-165-down.png" />
+    <None Include="Resources\BtnMainG.png" />
+    <None Include="Resources\ROLL_LT.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
