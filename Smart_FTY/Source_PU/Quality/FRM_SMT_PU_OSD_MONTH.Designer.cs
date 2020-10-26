@@ -118,6 +118,7 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.lblDateTime = new System.Windows.Forms.Label();
             this.pnHeader = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.cmdDay = new DevExpress.XtraEditors.SimpleButton();
             this.cmdMonth = new DevExpress.XtraEditors.SimpleButton();
@@ -125,7 +126,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.lblTitle2 = new System.Windows.Forms.Label();
             this.lblTitle1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitmain)).BeginInit();
             this.splitmain.Panel1.SuspendLayout();
             this.splitmain.Panel2.SuspendLayout();
@@ -223,6 +223,7 @@
             series1.Name = "Internal";
             stackedBarSeriesView1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(176)))), ((int)(((byte)(240)))));
             series1.View = stackedBarSeriesView1;
+            series1.Visible = false;
             stackedBarSeriesLabel2.Font = new System.Drawing.Font("Tahoma", 12F);
             stackedBarSeriesLabel2.TextPattern = "{V:#,#}";
             series2.Label = stackedBarSeriesLabel2;
@@ -1075,6 +1076,21 @@
             this.pnHeader.Size = new System.Drawing.Size(1920, 100);
             this.pnHeader.TabIndex = 17;
             // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Turquoise;
+            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Location = new System.Drawing.Point(1063, 0);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(108, 101);
+            this.button2.TabIndex = 721;
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // simpleButton1
             // 
             this.simpleButton1.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -1184,21 +1200,6 @@
             this.lblTitle1.TabIndex = 0;
             this.lblTitle1.Text = "PU";
             this.lblTitle1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.Turquoise;
-            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(1063, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(108, 101);
-            this.button2.TabIndex = 721;
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // FRM_SMT_PU_OSD_MONTH
             // 
