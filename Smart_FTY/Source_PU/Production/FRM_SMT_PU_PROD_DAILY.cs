@@ -132,7 +132,10 @@ namespace Smart_FTY
                     grdView.DataSource = dtsource;
                     return;
                 }
-                grdView.DataSource = dtsource.Rows.Count > 0 ? dtsource.Select("MC <> 'TOTAL'", "STT ASC").CopyToDataTable() : dtsource;
+                if (dtsource.Select("MC <> 'TOTAL'", "STT ASC").Count() > 0)
+                    grdView.DataSource = dtsource.Rows.Count > 0 ? dtsource.Select("MC <> 'TOTAL'", "STT ASC").CopyToDataTable() : dtsource;
+                else
+                    grdView.DataSource = dtsource;
                 lblTot_Plan.Text = "0";
                 lblTot_RPlan.Text = "0";
                 lblTot_Act.Text = "0";
