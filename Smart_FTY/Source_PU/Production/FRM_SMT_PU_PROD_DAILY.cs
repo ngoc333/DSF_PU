@@ -27,38 +27,42 @@ namespace Smart_FTY
             timer1.Enabled = true;
             timer1.Start();
             timer1.Interval = 1000;
+            dtpDate.DateTime = DateTime.Now;
             //cmdDay.Visible = false;
             lblTitle.Text = "PU Production Status by Day";
             lblDate.Text = string.Format(DateTime.Now.ToString("yyyy-MM-dd\nHH:mm:ss"));
             this.WindowState = FormWindowState.Maximized;
         }
 
-        public DataTable SEL_DATA_PROD_DAILY(string Qtype, string arg_op)
+        public DataTable SEL_DATA_PROD_DAILY(string Qtype, string arg_op, string arg_date)
         {
             COM.OraDB MyOraDB = new COM.OraDB();
             DataSet ds_ret;
 
             try
             {
-                string process_name = "MES.PKG_SMT_B_PROD_STATUS.SEL_PRODUCTION_STATUS";
+                string process_name = "MES.PKG_SMT_B_PROD_STATUS.SEL_PRODUCTION_STATUS_V02";
 
-                MyOraDB.ReDim_Parameter(4);
+                MyOraDB.ReDim_Parameter(5);
                 MyOraDB.Process_Name = process_name;
 
                 MyOraDB.Parameter_Name[0] = "V_P_OP";
-                MyOraDB.Parameter_Name[1] = "ARG_FRM_LINE";
-                MyOraDB.Parameter_Name[2] = "ARG_TO_LINE";
-                MyOraDB.Parameter_Name[3] = "OUT_CURSOR";
+                MyOraDB.Parameter_Name[1] = "V_P_DATE";
+                MyOraDB.Parameter_Name[2] = "ARG_FRM_LINE";
+                MyOraDB.Parameter_Name[3] = "ARG_TO_LINE";
+                MyOraDB.Parameter_Name[4] = "OUT_CURSOR";
 
                 MyOraDB.Parameter_Type[0] = (int)OracleType.VarChar;
                 MyOraDB.Parameter_Type[1] = (int)OracleType.VarChar;
                 MyOraDB.Parameter_Type[2] = (int)OracleType.VarChar;
-                MyOraDB.Parameter_Type[3] = (int)OracleType.Cursor;
+                MyOraDB.Parameter_Type[3] = (int)OracleType.VarChar;
+                MyOraDB.Parameter_Type[4] = (int)OracleType.Cursor;
 
                 MyOraDB.Parameter_Values[0] = arg_op;
-                MyOraDB.Parameter_Values[1] = "";
+                MyOraDB.Parameter_Values[1] = arg_date;
                 MyOraDB.Parameter_Values[2] = "";
                 MyOraDB.Parameter_Values[3] = "";
+                MyOraDB.Parameter_Values[4] = "";
 
                 MyOraDB.Add_Select_Parameter(true);
                 ds_ret = MyOraDB.Exe_Select_Procedure();
@@ -78,7 +82,7 @@ namespace Smart_FTY
             {
                 int n;
                 DataTable dtsource = null;
-                dtsource = SEL_DATA_PROD_DAILY("H", "");
+                dtsource = SEL_DATA_PROD_DAILY("H", "","");
                 if (dtsource != null && dtsource.Rows.Count > 0)
                 {
                     string name;
@@ -117,9 +121,10 @@ namespace Smart_FTY
         {
             try
             {
+                this.Cursor = Cursors.WaitCursor;
                 grdView.Refresh();
                 DataTable dtsource = null;
-                dtsource = SEL_DATA_PROD_DAILY("Q", arg_op);
+                dtsource = SEL_DATA_PROD_DAILY("Q", arg_op, dtpDate.DateTime.ToString("yyyyMMdd"));
                 //formatband();
                 DataTable dt = null;
                 if (dtsource == null)
@@ -127,7 +132,10 @@ namespace Smart_FTY
                     grdView.DataSource = dtsource;
                     return;
                 }
-                grdView.DataSource = dtsource.Rows.Count > 0 ? dtsource.Select("MC <> 'TOTAL'", "STT ASC").CopyToDataTable() : dtsource;
+                if (dtsource.Select("MC <> 'TOTAL'", "STT ASC").Count() > 0)
+                    grdView.DataSource = dtsource.Rows.Count > 0 ? dtsource.Select("MC <> 'TOTAL'", "STT ASC").CopyToDataTable() : dtsource;
+                else
+                    grdView.DataSource = dtsource;
                 lblTot_Plan.Text = "0";
                 lblTot_RPlan.Text = "0";
                 lblTot_Act.Text = "0";
@@ -167,9 +175,10 @@ namespace Smart_FTY
                     }
 
                 }
+                this.Cursor = Cursors.Default;
             }
             catch
-            {}
+            { this.Cursor = Cursors.Default; }
             
             //axfpSpread.MaxRows = 2;
             //if (dtsource != null && dtsource.Rows.Count > 0)
@@ -303,6 +312,11 @@ namespace Smart_FTY
         {
             Smart_FTY.ComVar._frm_home.Show();
             this.Hide();
+        }
+
+        private void dtpDate_EditValueChanged(object sender, EventArgs e)
+        {
+            BindingData("PUP");
         }
 
         private void gvwBase_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
