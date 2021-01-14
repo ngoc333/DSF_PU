@@ -89,76 +89,104 @@ namespace Smart_FTY
         {
             try
             {
-                if (argDt == null || argDt.Rows.Count == 0) return;
-                string[] arr = {"MON", "THEDATE" 
-                            ,"TOT_MAN", "TOT_NO_PLAN", "TOT_PLAN", "TOT_PER", "TOT_TUNOVER",  "TOT_TUNOVER_PER"
-                            ,"MAN1", "NO_PLAN1", "PLAN1", "PER1", "TUNOVER1",  "TUNOVER_PER1"
-                            ,"MAN2", "NO_PLAN2", "PLAN2", "PER2", "TUNOVER2",  "TUNOVER_PER2"                            
-                           };
+                if (argDt == null || argDt.Rows.Count == 0) return; 
                 axfpAbsent.Visible = false;
-                int iNumRow = argDt.Rows.Count;
-                axfpAbsent.MaxRows = 20;
-                axfpAbsent.MaxCols = 5;
-                axfpAbsent.MaxCols = 50;
-                for (int i = 0; i < argDt.Rows.Count; i++)
+                for (int i = 1; i <= axfpAbsent.MaxRows; i++)
                 {
-                    axfpAbsent.set_ColWidth(i + 4, Convert.ToDouble(argDt.Rows[0]["COL_W"].ToString()));
-                    for (int j = 0; j < arr.Length; j++)
-                    {
-                        axfpAbsent.Col = i + 4;
-                        axfpAbsent.Row = j + 1;
-                        axfpAbsent.Text = argDt.Rows[i][arr[j]].ToString();
-                        if (j + 1 > 2)
-                        {
-                            axfpAbsent.BackColor = Color.White;
-                            axfpAbsent.ForeColor = Color.Black;
-                            axfpAbsent.TypeHAlign = FPSpreadADO.TypeHAlignConstants.TypeHAlignRight;
-                           
-                        }
-                        else if (j + 1 == 1)
-                        {
-                            axfpAbsent.BackColor = Color.Gray;
-                            axfpAbsent.ForeColor = Color.White;
-                            axfpAbsent.TypeHAlign = FPSpreadADO.TypeHAlignConstants.TypeHAlignCenter;
-                        }
-                        else if (j + 1 == 2)
-                        {
-                            axfpAbsent.BackColor = Color.Silver;
-                            axfpAbsent.ForeColor = Color.White;
-                            axfpAbsent.TypeHAlign = FPSpreadADO.TypeHAlignConstants.TypeHAlignCenter;
-                        }
-
-
-                        // axfpAbsent.SetText(i + 4, j + 1, argDt.Rows[i][arr[j]].ToString());
-                    }
-
-                    if (argDt.Rows[i]["TODAY"].ToString() == argDt.Rows[i]["THEDATE"].ToString())
-                    {
-                        loadChartAbsent(arcScaleComponentRub, chartHrCmp, lblRubValueG, argDt.Rows[i]["PER1"].ToString(), argDt.Rows[i]["PLAN1"].ToString(), argDt.Rows[i]["NO_PLAN1"].ToString());
-                        loadChartAbsent(arcScaleComponentEva, chartHrPhy, lblEvaValueG, argDt.Rows[i]["PER2"].ToString(), argDt.Rows[i]["PLAN2"].ToString(), argDt.Rows[i]["NO_PLAN2"].ToString());
-                    }
-
+                    axfpAbsent.Row = i;
+                    axfpAbsent.RowHidden = false;
                 }
-                
+
+                int iMaxLine;
+                int.TryParse(argDt.Compute("max([RN])", "").ToString(), out iMaxLine);
+
+
+                int iNumCol = 32;
+                axfpAbsent.MaxCols = 5;
+
+                axfpAbsent.ScrollBars = iMaxLine > 1 ? FPSpreadADO.ScrollBarsConstants.ScrollBarsVertical : FPSpreadADO.ScrollBarsConstants.ScrollBarsNone;
+
+                for (int i = 1; i <= iMaxLine; i++)
+                {
+                    DataTable dt = argDt.Select("RN = '" + i + "'", "THEDATE").CopyToDataTable();
+                    iNumCol = dt.Rows.Count;
+                    axfpAbsent.MaxCols = iNumCol + 3;
+
+                    setDataGrid(dt, i);
+                }
+
+                for (int i = 2 + (6 * iMaxLine) + 1; i <= axfpAbsent.MaxRows; i++)
+                {
+                    axfpAbsent.Row = i;
+                    axfpAbsent.RowHidden = true;
+                }
+
+                //merge Row Month
+                axfpAbsent.AddCellSpan(4, 1, iNumCol - 1, 1);
+
+                //merge column AVG
+                axfpAbsent.AddCellSpan(iNumCol + 3, 1, 1, 2);
+                //set color column AVG
                 axfpAbsent.Row = -1;
-                axfpAbsent.Col = iNumRow + 3;
+                axfpAbsent.Col = iNumCol + 3;
                 axfpAbsent.BackColor = Color.Orange;
                 axfpAbsent.ForeColor = Color.White;
 
-                axfpAbsent.SetCellBorder(iNumRow + 3, 1, iNumRow + 3, axfpAbsent.MaxRows, FPSpreadADO.CellBorderIndexConstants.CellBorderIndexBottom, 0, FPSpreadADO.CellBorderStyleConstants.CellBorderStyleBlank);
+                axfpAbsent.SetCellBorder(iNumCol + 3, 1, iNumCol + 3, axfpAbsent.MaxRows, FPSpreadADO.CellBorderIndexConstants.CellBorderIndexBottom, 0, FPSpreadADO.CellBorderStyleConstants.CellBorderStyleBlank);
 
-                axfpAbsent.AddCellSpan(4, 1, iNumRow - 1, 1);
-                axfpAbsent.AddCellSpan(iNumRow + 3, 1, 1, 2);
-                axfpAbsent.set_ColWidth(iNumRow + 3, 8);
-                axfpAbsent.MaxCols = iNumRow + 3;
 
-                
             }
             catch
             { }
             finally { axfpAbsent.Visible = true; }
 
+        }
+        private void setDataGrid(DataTable argDt, int argLineNum)
+        {
+            string[] arr = {"MON", "THEDATE" 
+                            ,"MAN1", "NO_PLAN1", "PLAN1", "PER1", "TUNOVER1",  "TUNOVER1_PER1"
+                          //  ,"MAN2", "NO_PLAN2", "PLAN2", "PER2", "TUNOVER2",  "TUNOVER_PER2"                            
+                           };
+            int iCol = 4;
 
+
+            for (int i = 0; i < argDt.Rows.Count; i++)
+            {
+                int iRow = argLineNum == 1 ? 1 : 3 + (6 * (argLineNum - 1));
+                int iStartRow = argLineNum == 1 ? 0 : 2;
+                axfpAbsent.SetText(1, argLineNum == 1 ? 3 : iRow, argDt.Rows[0]["LOC"].ToString());
+                axfpAbsent.set_ColWidth(i + 4, Convert.ToDouble(argDt.Rows[0]["COL_W"].ToString()));
+                for (int j = iStartRow; j < arr.Length; j++)
+                {
+                    axfpAbsent.Col = iCol;
+                    axfpAbsent.Row = iRow;
+                    axfpAbsent.Text = argDt.Rows[i][arr[j]].ToString();
+                    if (iRow > 2)
+                    {
+                        axfpAbsent.BackColor = Color.White;
+                        axfpAbsent.ForeColor = Color.Black;
+                        axfpAbsent.TypeHAlign = FPSpreadADO.TypeHAlignConstants.TypeHAlignRight;
+                        axfpAbsent.TypeVAlign = FPSpreadADO.TypeVAlignConstants.TypeVAlignCenter;
+                    }
+                    else if (iRow == 1)
+                    {
+                        axfpAbsent.BackColor = Color.Gray;
+                        axfpAbsent.ForeColor = Color.White;
+                        axfpAbsent.TypeHAlign = FPSpreadADO.TypeHAlignConstants.TypeHAlignCenter;
+                        axfpAbsent.TypeVAlign = FPSpreadADO.TypeVAlignConstants.TypeVAlignCenter;
+                    }
+                    else if (iRow == 2)
+                    {
+                        axfpAbsent.BackColor = Color.Silver;
+                        axfpAbsent.ForeColor = Color.White;
+                        axfpAbsent.TypeHAlign = FPSpreadADO.TypeHAlignConstants.TypeHAlignCenter;
+                        axfpAbsent.TypeVAlign = FPSpreadADO.TypeVAlignConstants.TypeVAlignCenter;
+                    }
+                    iRow++;
+                }
+                iCol++;
+
+            }
         }
 
         #region Human Resource
@@ -179,23 +207,31 @@ namespace Smart_FTY
                 argChart.Series[0].ValueDataMembers.AddRange(new string[] { "VALUE_DATA" });
 
                 double iAbsent, iAttend;
-                double.TryParse(dt.Rows[0][1].ToString(), out iAbsent);
-                double.TryParse(dt.Rows[1][1].ToString(), out iAttend);
+                double.TryParse(dt.Rows[0][3].ToString(), out iAbsent);
+                double.TryParse(dt.Rows[1][3].ToString(), out iAttend);
 
                 // return;
                 totalMain = iAbsent + iAttend;
 
                 strTotal = "Total Absent\n"
                        + totalMain.ToString() + " Person(s)\n"
-                       + (Math.Round(totalMain * 100 / (totalMain + double.Parse(dt.Rows[2][1].ToString())), 1)).ToString() + " %";
+                       + (Math.Round(totalMain * 100 / (totalMain + double.Parse(dt.Rows[2][3].ToString())), 1)).ToString() + " %";
 
-                if (argChart.Name == "chartHrCmp")
+                if (argChart.Name == "chartHrPUP")
                 {
-                    lblTotCMP.Text = strTotal;
+                    lblToPUP.Text = strTotal;
+                }
+                if (argChart.Name == "chartHrPUB")
+                {
+                    lblToPUB.Text = strTotal;
+                }
+                if (argChart.Name == "chartHrPUA")
+                {
+                    lblToPUA.Text = strTotal;
                 }
                 else
                 {
-                    lblTotPhy.Text = strTotal;   //PHP
+                    lblToPUS.Text = strTotal; 
                 }
 
 
@@ -247,11 +283,21 @@ namespace Smart_FTY
         {
             try
             {
-                System.Data.DataSet ds = GET_DATA("PUP");
+                System.Data.DataSet ds = GET_DATA();
                 loadDataGridAbsent(ds.Tables[0]);
                 // loadDataGridTunover(ds.Tables[1]);
-                chartHr(ds.Tables[1], chartHrCmp);
-                chartHr(ds.Tables[2], chartHrPhy);
+                if (ds.Tables[1].Select("LINE_CD = 'PUP'", "RN").Count() > 0)
+                    chartHr(ds.Tables[1].Select("LINE_CD = 'PUP'", "RN").CopyToDataTable(), chartHrPUP);
+                else chartHrPUP.DataSource = null;
+                if (ds.Tables[1].Select("LINE_CD = 'PUB'", "RN").Count() > 0)
+                    chartHr(ds.Tables[1].Select("LINE_CD = 'PUB'", "RN").CopyToDataTable(), chartHrPUB);
+                else chartHrPUP.DataSource = null;
+                if (ds.Tables[1].Select("LINE_CD = 'PUA'", "RN").Count() > 0)
+                    chartHr(ds.Tables[1].Select("LINE_CD = 'PUA'", "RN").CopyToDataTable(), chartHrPUA);
+                else chartHrPUP.DataSource = null;
+                if (ds.Tables[1].Select("LINE_CD = 'PUS'", "RN").Count() > 0)
+                    chartHr(ds.Tables[1].Select("LINE_CD = 'PUS'", "RN").CopyToDataTable(), chartHrPUS);
+                else chartHrPUP.DataSource = null;
             }
             catch
             { }
@@ -261,34 +307,34 @@ namespace Smart_FTY
         #endregion Proc
 
         #region DB
-        private System.Data.DataSet GET_DATA(string argWH)
+        private System.Data.DataSet GET_DATA()
         {
             COM.OraDB MyOraDB = new COM.OraDB();
             DataSet ds_ret;
             try
             {
-                string process_name = "MES.PKG_SMT_B_HR_STATUS.SEL_B_HR_STATUS";
+                string process_name = "MES.PKG_SMT_B_HR_STATUS_V02.SEL_B_HR_STATUS_V02";
 
-                MyOraDB.ReDim_Parameter(5);
+                MyOraDB.ReDim_Parameter(4);
                 MyOraDB.Process_Name = process_name;
 
                 MyOraDB.Parameter_Name[0] = "ARG_P_OP";
-                MyOraDB.Parameter_Name[1] = "OUT_CURSOR";
-                MyOraDB.Parameter_Name[2] = "OUT_CURSOR1";
-                MyOraDB.Parameter_Name[3] = "OUT_CURSOR2";
-                MyOraDB.Parameter_Name[4] = "ARG_YM";
+                MyOraDB.Parameter_Name[1] = "ARG_YM";
+                MyOraDB.Parameter_Name[2] = "OUT_CURSOR";
+                MyOraDB.Parameter_Name[3] = "OUT_CURSOR1";
+                
 
                 MyOraDB.Parameter_Type[0] = (int)OracleType.VarChar;
-                MyOraDB.Parameter_Type[1] = (int)OracleType.Cursor;
+                MyOraDB.Parameter_Type[1] = (int)OracleType.VarChar;
                 MyOraDB.Parameter_Type[2] = (int)OracleType.Cursor;
                 MyOraDB.Parameter_Type[3] = (int)OracleType.Cursor;
-                MyOraDB.Parameter_Type[4] = (int)OracleType.VarChar;
+               
 
-                MyOraDB.Parameter_Values[0] = argWH;
-                MyOraDB.Parameter_Values[1] = "";
+                MyOraDB.Parameter_Values[0] = "000";
+                MyOraDB.Parameter_Values[1] = uc_month.GetValue().ToString();
                 MyOraDB.Parameter_Values[2] = "";
                 MyOraDB.Parameter_Values[3] = "";
-                MyOraDB.Parameter_Values[4] = uc_month.GetValue().ToString();
+                
 
                 MyOraDB.Add_Select_Parameter(true);
                 ds_ret = MyOraDB.Exe_Select_Procedure();
