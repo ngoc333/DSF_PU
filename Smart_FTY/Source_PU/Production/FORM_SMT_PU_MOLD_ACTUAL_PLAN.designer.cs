@@ -30,6 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FORM_SMT_PU_MOLD_ACTUAL_PLAN));
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject13 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject14 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject15 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject16 = new DevExpress.Utils.SerializableAppearanceObject();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tmr_blind = new System.Windows.Forms.Timer(this.components);
             this.lblPH3 = new System.Windows.Forms.Label();
@@ -39,7 +49,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lbl_Actual = new System.Windows.Forms.Label();
             this.lbl_Plan = new System.Windows.Forms.Label();
-            this.lbl_Shift = new System.Windows.Forms.Label();
             this.lblPH1 = new System.Windows.Forms.Label();
             this.pnHeader = new System.Windows.Forms.Panel();
             this.cmdBack = new System.Windows.Forms.Button();
@@ -50,9 +59,20 @@
             this.lblDate = new System.Windows.Forms.Label();
             this.lblTitle2 = new System.Windows.Forms.Label();
             this.axGrid = new AxFPSpreadADO.AxfpSpread();
+            this.lbl_dif3 = new System.Windows.Forms.Label();
+            this.dtpDate = new DevExpress.XtraEditors.DateEdit();
+            this.pnShift = new System.Windows.Forms.Panel();
+            this.lbl_dif2 = new System.Windows.Forms.Label();
+            this.lbl_dif1 = new System.Windows.Forms.Label();
+            this.lbl_Shift2 = new System.Windows.Forms.Label();
+            this.lbl_Shift1 = new System.Windows.Forms.Label();
+            this.lbl_Shift3 = new System.Windows.Forms.Label();
             this.pnHeader.SuspendLayout();
             this.pnButton.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtpDate.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtpDate.Properties)).BeginInit();
+            this.pnShift.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -103,6 +123,7 @@
             this.lbl_change.TabIndex = 690;
             this.lbl_change.Text = "Difference Plan";
             this.lbl_change.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lbl_change.Visible = false;
             // 
             // label1
             // 
@@ -142,18 +163,6 @@
             this.lbl_Plan.Text = "Total Plan:  704";
             this.lbl_Plan.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // lbl_Shift
-            // 
-            this.lbl_Shift.BackColor = System.Drawing.Color.DodgerBlue;
-            this.lbl_Shift.Font = new System.Drawing.Font("Calibri", 30.75F, System.Drawing.FontStyle.Bold);
-            this.lbl_Shift.ForeColor = System.Drawing.Color.White;
-            this.lbl_Shift.Location = new System.Drawing.Point(685, 121);
-            this.lbl_Shift.Name = "lbl_Shift";
-            this.lbl_Shift.Size = new System.Drawing.Size(204, 52);
-            this.lbl_Shift.TabIndex = 696;
-            this.lbl_Shift.Text = "Shift 1";
-            this.lbl_Shift.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // lblPH1
             // 
             this.lblPH1.BackColor = System.Drawing.Color.Gray;
@@ -178,7 +187,7 @@
             this.pnHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnHeader.Location = new System.Drawing.Point(0, 0);
             this.pnHeader.Name = "pnHeader";
-            this.pnHeader.Size = new System.Drawing.Size(1926, 103);
+            this.pnHeader.Size = new System.Drawing.Size(1924, 103);
             this.pnHeader.TabIndex = 698;
             // 
             // cmdBack
@@ -261,7 +270,7 @@
             this.lblDate.Dock = System.Windows.Forms.DockStyle.Right;
             this.lblDate.Font = new System.Drawing.Font("Calibri", 30F, System.Drawing.FontStyle.Bold);
             this.lblDate.ForeColor = System.Drawing.Color.White;
-            this.lblDate.Location = new System.Drawing.Point(1695, 0);
+            this.lblDate.Location = new System.Drawing.Point(1693, 0);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(231, 103);
             this.lblDate.TabIndex = 0;
@@ -283,8 +292,8 @@
             // 
             // axGrid
             // 
-            this.axGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.axGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.axGrid.DataSource = null;
             this.axGrid.Location = new System.Drawing.Point(3, 233);
             this.axGrid.Name = "axGrid";
@@ -293,15 +302,176 @@
             this.axGrid.TabIndex = 660;
             this.axGrid.BeforeEditMode += new AxFPSpreadADO._DSpreadEvents_BeforeEditModeEventHandler(this.axGrid_BeforeEditMode);
             // 
+            // lbl_dif3
+            // 
+            this.lbl_dif3.BackColor = System.Drawing.Color.White;
+            this.lbl_dif3.Font = new System.Drawing.Font("Calibri", 20.75F, System.Drawing.FontStyle.Bold);
+            this.lbl_dif3.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_dif3.Location = new System.Drawing.Point(413, 48);
+            this.lbl_dif3.Name = "lbl_dif3";
+            this.lbl_dif3.Size = new System.Drawing.Size(205, 31);
+            this.lbl_dif3.TabIndex = 708;
+            this.lbl_dif3.Text = "Difference Plan";
+            this.lbl_dif3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // dtpDate
+            // 
+            this.dtpDate.Cursor = System.Windows.Forms.Cursors.Default;
+            this.dtpDate.EditValue = new System.DateTime(2021, 1, 5, 16, 0, 56, 0);
+            this.dtpDate.Location = new System.Drawing.Point(19, 109);
+            this.dtpDate.Name = "dtpDate";
+            this.dtpDate.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.dtpDate.Properties.Appearance.Font = new System.Drawing.Font("Calibri", 24.25F, System.Drawing.FontStyle.Bold);
+            this.dtpDate.Properties.Appearance.ForeColor = System.Drawing.Color.Black;
+            this.dtpDate.Properties.Appearance.Options.UseFont = true;
+            this.dtpDate.Properties.Appearance.Options.UseForeColor = true;
+            this.dtpDate.Properties.AppearanceCalendar.CalendarHeader.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpDate.Properties.AppearanceCalendar.CalendarHeader.Options.UseFont = true;
+            this.dtpDate.Properties.AppearanceCalendar.DayCell.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpDate.Properties.AppearanceCalendar.DayCell.Options.UseFont = true;
+            this.dtpDate.Properties.AppearanceCalendar.DayCellHighlighted.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpDate.Properties.AppearanceCalendar.DayCellHighlighted.Options.UseFont = true;
+            this.dtpDate.Properties.AppearanceDisabled.Font = new System.Drawing.Font("Calibri", 24.25F, System.Drawing.FontStyle.Bold);
+            this.dtpDate.Properties.AppearanceDisabled.Options.UseFont = true;
+            this.dtpDate.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpDate.Properties.AppearanceDropDown.Options.UseFont = true;
+            this.dtpDate.Properties.AppearanceFocused.Font = new System.Drawing.Font("Calibri", 24.25F, System.Drawing.FontStyle.Bold);
+            this.dtpDate.Properties.AppearanceFocused.Options.UseFont = true;
+            this.dtpDate.Properties.AppearanceReadOnly.Font = new System.Drawing.Font("Calibri", 24.25F, System.Drawing.FontStyle.Bold);
+            this.dtpDate.Properties.AppearanceReadOnly.Options.UseFont = true;
+            this.dtpDate.Properties.AutoHeight = false;
+            editorButtonImageOptions3.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions3.Image")));
+            serializableAppearanceObject9.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Bold);
+            serializableAppearanceObject9.Options.UseFont = true;
+            serializableAppearanceObject10.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Bold);
+            serializableAppearanceObject10.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
+            serializableAppearanceObject10.Options.UseFont = true;
+            serializableAppearanceObject11.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Bold);
+            serializableAppearanceObject11.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
+            serializableAppearanceObject11.Options.UseFont = true;
+            serializableAppearanceObject12.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Bold);
+            serializableAppearanceObject12.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
+            serializableAppearanceObject12.Options.UseFont = true;
+            this.dtpDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", 50, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null)});
+            this.dtpDate.Properties.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            editorButtonImageOptions4.Location = DevExpress.XtraEditors.ImageLocation.Default;
+            serializableAppearanceObject13.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Bold);
+            serializableAppearanceObject13.Options.UseFont = true;
+            serializableAppearanceObject14.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Bold);
+            serializableAppearanceObject14.Options.UseFont = true;
+            serializableAppearanceObject15.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Bold);
+            serializableAppearanceObject15.Options.UseFont = true;
+            serializableAppearanceObject16.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Bold);
+            serializableAppearanceObject16.Options.UseFont = true;
+            this.dtpDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Close, "", 50, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "", null, null)});
+            this.dtpDate.Properties.CalendarTimeProperties.ButtonsStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.dtpDate.Properties.CalendarTimeProperties.ReadOnly = true;
+            this.dtpDate.Properties.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.dtpDate.Properties.ContextImageOptions.SvgImageSize = new System.Drawing.Size(1, 10);
+            this.dtpDate.Properties.DisplayFormat.FormatString = "yyyy/MM/dd";
+            this.dtpDate.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.dtpDate.Properties.EditFormat.FormatString = "yyyy/MM/dd";
+            this.dtpDate.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.dtpDate.Properties.Mask.EditMask = "yyyy/MM/dd";
+            this.dtpDate.Properties.ShowNullValuePromptWhenFocused = true;
+            this.dtpDate.Properties.VistaCalendarViewStyle = DevExpress.XtraEditors.VistaCalendarViewStyle.MonthView;
+            this.dtpDate.Size = new System.Drawing.Size(237, 47);
+            this.dtpDate.TabIndex = 711;
+            this.dtpDate.ToolTipIconType = DevExpress.Utils.ToolTipIconType.Information;
+            this.dtpDate.ToolTipTitle = "Click vào để chọn ngày";
+            this.dtpDate.EditValueChanged += new System.EventHandler(this.dtpDate_EditValueChanged);
+            // 
+            // pnShift
+            // 
+            this.pnShift.Controls.Add(this.lbl_dif3);
+            this.pnShift.Controls.Add(this.lbl_dif2);
+            this.pnShift.Controls.Add(this.lbl_dif1);
+            this.pnShift.Controls.Add(this.lbl_Shift2);
+            this.pnShift.Controls.Add(this.lbl_Shift1);
+            this.pnShift.Controls.Add(this.lbl_Shift3);
+            this.pnShift.Location = new System.Drawing.Point(261, 109);
+            this.pnShift.Name = "pnShift";
+            this.pnShift.Size = new System.Drawing.Size(628, 82);
+            this.pnShift.TabIndex = 712;
+            // 
+            // lbl_dif2
+            // 
+            this.lbl_dif2.BackColor = System.Drawing.Color.White;
+            this.lbl_dif2.Font = new System.Drawing.Font("Calibri", 20.75F, System.Drawing.FontStyle.Bold);
+            this.lbl_dif2.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_dif2.Location = new System.Drawing.Point(208, 48);
+            this.lbl_dif2.Name = "lbl_dif2";
+            this.lbl_dif2.Size = new System.Drawing.Size(205, 31);
+            this.lbl_dif2.TabIndex = 707;
+            this.lbl_dif2.Text = "Difference Plan";
+            this.lbl_dif2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // lbl_dif1
+            // 
+            this.lbl_dif1.BackColor = System.Drawing.Color.White;
+            this.lbl_dif1.Font = new System.Drawing.Font("Calibri", 20.75F, System.Drawing.FontStyle.Bold);
+            this.lbl_dif1.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_dif1.Location = new System.Drawing.Point(3, 48);
+            this.lbl_dif1.Name = "lbl_dif1";
+            this.lbl_dif1.Size = new System.Drawing.Size(205, 31);
+            this.lbl_dif1.TabIndex = 706;
+            this.lbl_dif1.Text = "Difference Plan";
+            this.lbl_dif1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // lbl_Shift2
+            // 
+            this.lbl_Shift2.BackColor = System.Drawing.Color.Gray;
+            this.lbl_Shift2.Font = new System.Drawing.Font("Calibri", 28.75F, System.Drawing.FontStyle.Bold);
+            this.lbl_Shift2.ForeColor = System.Drawing.Color.White;
+            this.lbl_Shift2.Location = new System.Drawing.Point(209, 1);
+            this.lbl_Shift2.Name = "lbl_Shift2";
+            this.lbl_Shift2.Size = new System.Drawing.Size(204, 45);
+            this.lbl_Shift2.TabIndex = 705;
+            this.lbl_Shift2.Tag = "2";
+            this.lbl_Shift2.Text = "Shift 2";
+            this.lbl_Shift2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl_Shift2.Click += new System.EventHandler(this.lbl_Shift_Click);
+            // 
+            // lbl_Shift1
+            // 
+            this.lbl_Shift1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.lbl_Shift1.Font = new System.Drawing.Font("Calibri", 28.75F, System.Drawing.FontStyle.Bold);
+            this.lbl_Shift1.ForeColor = System.Drawing.Color.White;
+            this.lbl_Shift1.Location = new System.Drawing.Point(4, 1);
+            this.lbl_Shift1.Name = "lbl_Shift1";
+            this.lbl_Shift1.Size = new System.Drawing.Size(204, 45);
+            this.lbl_Shift1.TabIndex = 696;
+            this.lbl_Shift1.Tag = "1";
+            this.lbl_Shift1.Text = "Shift 1";
+            this.lbl_Shift1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl_Shift1.Click += new System.EventHandler(this.lbl_Shift_Click);
+            // 
+            // lbl_Shift3
+            // 
+            this.lbl_Shift3.BackColor = System.Drawing.Color.Gray;
+            this.lbl_Shift3.Font = new System.Drawing.Font("Calibri", 28.75F, System.Drawing.FontStyle.Bold);
+            this.lbl_Shift3.ForeColor = System.Drawing.Color.White;
+            this.lbl_Shift3.Location = new System.Drawing.Point(414, 1);
+            this.lbl_Shift3.Name = "lbl_Shift3";
+            this.lbl_Shift3.Size = new System.Drawing.Size(204, 45);
+            this.lbl_Shift3.TabIndex = 704;
+            this.lbl_Shift3.Tag = "3";
+            this.lbl_Shift3.Text = "Shift 3";
+            this.lbl_Shift3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl_Shift3.Click += new System.EventHandler(this.lbl_Shift_Click);
+            // 
             // FORM_SMT_PU_MOLD_ACTUAL_PLAN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1926, 952);
+            this.ClientSize = new System.Drawing.Size(1924, 952);
+            this.Controls.Add(this.dtpDate);
+            this.Controls.Add(this.pnShift);
             this.Controls.Add(this.pnHeader);
             this.Controls.Add(this.lblPH1);
-            this.Controls.Add(this.lbl_Shift);
             this.Controls.Add(this.lbl_Actual);
             this.Controls.Add(this.lbl_Plan);
             this.Controls.Add(this.label1);
@@ -318,6 +488,9 @@
             this.pnHeader.ResumeLayout(false);
             this.pnButton.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtpDate.Properties.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtpDate.Properties)).EndInit();
+            this.pnShift.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -334,7 +507,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbl_Actual;
         private System.Windows.Forms.Label lbl_Plan;
-        private System.Windows.Forms.Label lbl_Shift;
         private System.Windows.Forms.Label lblPH1;
         private System.Windows.Forms.Panel pnHeader;
         protected System.Windows.Forms.Button cmdBack;
@@ -344,5 +516,13 @@
         protected DevExpress.XtraEditors.SimpleButton cmdDay;
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Label lblTitle2;
+        private System.Windows.Forms.Label lbl_dif3;
+        private DevExpress.XtraEditors.DateEdit dtpDate;
+        private System.Windows.Forms.Panel pnShift;
+        private System.Windows.Forms.Label lbl_dif2;
+        private System.Windows.Forms.Label lbl_dif1;
+        private System.Windows.Forms.Label lbl_Shift2;
+        private System.Windows.Forms.Label lbl_Shift1;
+        private System.Windows.Forms.Label lbl_Shift3;
     }
 }

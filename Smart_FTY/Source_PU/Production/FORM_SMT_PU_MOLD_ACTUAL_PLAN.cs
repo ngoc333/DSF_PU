@@ -12,7 +12,7 @@ using System.Data.OracleClient;
 using System.Data.SqlClient;
 //using ChartDirector;
 using System.Threading;
-
+using System.Diagnostics;
 
 namespace Smart_FTY
 {
@@ -33,10 +33,13 @@ namespace Smart_FTY
         public int _time = 0;
         DataTable _dt_layout = null;
         int _count = 0;
+        string _shift = "1";
+        bool _isLoad = true;
+
         #endregion Init
 
         #region Function
-         
+
         private void setDefaultGrid(AxFPSpreadADO.AxfpSpread arg_grid)
         {
             // Set Default Grid
@@ -63,24 +66,105 @@ namespace Smart_FTY
             for (int ic = 2; ic <= 150; ic++)
                 arg_grid.set_ColWidth(ic, 4.2);
         }
-    
+
         #region Binding Data Grid
-        public void set_qty_actual(DataTable arg_dt)
+
+        public void set_qty_actual(bool arg_status)
         {
-            lbl_Plan.Text = "Total Plan: " + arg_dt.Rows[0]["PLAN"].ToString();
-            lbl_Actual.Text = "Total Actual: " + arg_dt.Rows[0]["ACTUAL"].ToString();
 
+            int iPlan = (int)_dt_layout.Compute("count(MOLD_SIZE_CD)", "");
+            int iActual = (int)_dt_layout.Compute("count(USE_SIZE)", "");
+            int iYellow = (int)_dt_layout.Compute("count(STATUS)", "STATUS = '1'");
+ 
 
-            double d;
-            int x = _count;
-            int y = Convert.ToInt32(arg_dt.Rows[0]["PLAN"]);
-            d = (float)x / y * 100.0;
-            lbl_change.Text = "Difference Plan: " + d.ToString("###,###") + "%";
+            lbl_Plan.Text = "Total Plan: " + iPlan;
+            lbl_Actual.Text = "Total Actual: " + iActual;
 
+            if (_shift == "1")
+            {
+                lbl_dif1.Text = iPlan == 0 ? "" : ((float)iYellow / iPlan * 100.0).ToString("###,##0.#") + "%";
+            }
+            else if (_shift == "2")
+            {
+                lbl_dif2.Text = iPlan == 0 ? "" : ((float)iYellow / iPlan * 100.0).ToString("###,##0.#") + "%";
+            }
+            else
+            {
+                lbl_dif3.Text = iPlan == 0 ? "" : ((float)iYellow / iPlan * 100.0).ToString("###,##0.#") + "%";
+            }
 
+            if (!arg_status) return;
 
+            if (_shift == "1")
+            {
+                DataTable dtShif2 = SEL_APS_PLAN_ACTUAL("2");
+                SetTextDif(dtShif2, lbl_dif2);
 
+                DataTable dtShif3 = SEL_APS_PLAN_ACTUAL("3");
+                SetTextDif(dtShif3, lbl_dif3);
+
+            }
+            else if (_shift == "2")
+            {
+                DataTable dtShif1 = SEL_APS_PLAN_ACTUAL("1");
+                SetTextDif(dtShif1, lbl_dif1);
+
+                DataTable dtShif3 = SEL_APS_PLAN_ACTUAL("3");
+                SetTextDif(dtShif3, lbl_dif3);
+            }
+            else
+            {
+                DataTable dtShif2 = SEL_APS_PLAN_ACTUAL("2");
+                SetTextDif(dtShif2, lbl_dif2);
+
+                DataTable dtShif1 = SEL_APS_PLAN_ACTUAL("3");
+                SetTextDif(dtShif1, lbl_dif1);
+            }
         }
+
+        private void SetTextDif(DataTable dtShift, Label lbl_dif)
+        {
+            try
+            {
+                
+
+                if (dtShift == null || dtShift.Rows.Count == 0)
+                {
+                    lbl_dif.Text = "";
+                    return;
+                }
+                int iPlan = (int)dtShift.Compute("count(MOLD_SIZE_CD)", "");
+                int iYellow = (int)dtShift.Compute("count(STATUS)", "STATUS = '1'");
+                if (iPlan == 0)
+                {
+                    lbl_dif.Text = "";
+                    return;
+                }
+                lbl_dif.Text = ((double)iYellow  / iPlan * 100.0).ToString("###,##0.#") + "%";
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
+        private int GetShift()
+        {
+            if (Convert.ToInt16(DateTime.Now.ToString("HH")) >= 14 && Convert.ToInt16(DateTime.Now.ToString("HH")) < 22)
+            {
+                return 1;
+            }
+            else if (Convert.ToInt16(DateTime.Now.ToString("HH")) >= 6 && Convert.ToInt16(DateTime.Now.ToString("HH")) < 14)
+            {
+                return 2;
+            }
+            else
+            {
+                return 3;
+            }
+        }
+
+
         private void DisplayGrid(DataTable arg_dt, AxFPSpreadADO.AxfpSpread arg_grid)
         {
            
@@ -143,7 +227,7 @@ namespace Smart_FTY
                // WarehouseMaterialSystem.ClassLib.WinAPI.AnimateWindow(arg_grid.Handle, 200, WarehouseMaterialSystem.ClassLib.WinAPI.getSlidType("2"));
              //   arg_grid.Visible = true;
             }
-            set_qty_actual(arg_dt = SEL_TOTAL_PLAN_ACTUAL());
+            
         }
 
         private void MachineHead(int arg_icol, int arg_irow, int arg_idt, DataTable arg_dt, AxFPSpreadADO.AxfpSpread arg_grid)
@@ -289,8 +373,9 @@ namespace Smart_FTY
             try
             {
                 axGrid.Visible = false;
-                if (_dt_layout == null) _dt_layout = SEL_APS_PLAN_ACTUAL();
+                _dt_layout = SEL_APS_PLAN_ACTUAL(_shift);
                 DisplayGrid(_dt_layout, axGrid);
+                set_qty_actual(arg_status);
             }
             catch 
             { }
@@ -308,27 +393,32 @@ namespace Smart_FTY
         #endregion Fuction
 
         #region DB
-        public DataTable SEL_APS_PLAN_ACTUAL()
+        public DataTable SEL_APS_PLAN_ACTUAL(string arg_shift)
         {
             COM.OraDB MyOraDB = new COM.OraDB();
             System.Data.DataSet ds_ret;
 
             try
             {
-                string process_name = "PKG_SPB_MOLD_WMS_V2.SEL_MOLD_APS_ACTUAL";
+                string process_name = "PKG_SPB_MOLD_WMS_V2.SEL_MOLD_APS_ACTUAL_V2";
 
-                MyOraDB.ReDim_Parameter(2);
+                MyOraDB.ReDim_Parameter(4);
                 MyOraDB.Process_Name = process_name;
 
- 
                 MyOraDB.Parameter_Name[0] = "ARG_WH_CD";
-                MyOraDB.Parameter_Name[1] = "OUT_CURSOR";
+                MyOraDB.Parameter_Name[1] = "ARG_DATE";
+                MyOraDB.Parameter_Name[2] = "ARG_SHIFT";
+                MyOraDB.Parameter_Name[3] = "OUT_CURSOR";
 
                 MyOraDB.Parameter_Type[0] = (int)OracleType.VarChar;
-                MyOraDB.Parameter_Type[1] = (int)OracleType.Cursor;
+                MyOraDB.Parameter_Type[1] = (int)OracleType.VarChar;
+                MyOraDB.Parameter_Type[2] = (int)OracleType.VarChar;
+                MyOraDB.Parameter_Type[3] = (int)OracleType.Cursor;
 
                 MyOraDB.Parameter_Values[0] = "50";
-                MyOraDB.Parameter_Values[1] = "";
+                MyOraDB.Parameter_Values[1] = dtpDate.DateTime.ToString("yyyyMMdd");
+                MyOraDB.Parameter_Values[2] = arg_shift;
+                MyOraDB.Parameter_Values[3] = "";
 
                 MyOraDB.Add_Select_Parameter(true);
 
@@ -396,17 +486,17 @@ namespace Smart_FTY
                 lblDate.Text = string.Format(DateTime.Now.ToString("yyyy-MM-dd")) + "\n\r" + string.Format(DateTime.Now.ToString("HH:mm:ss"));
                 if (_time == 60)
                 {
-                    _dt_layout = SEL_APS_PLAN_ACTUAL();
-                    loaddata(true);
+                    
+                    loaddata(false);
                     _time = 0;
                 }
 
-                if (Convert.ToInt16(DateTime.Now.ToString("HH")) >= 14 && Convert.ToInt16(DateTime.Now.ToString("HH")) < 22)
-                    lbl_Shift.Text = "SHIFT 2";
-                else if (Convert.ToInt16(DateTime.Now.ToString("HH")) >= 6 && Convert.ToInt16(DateTime.Now.ToString("HH")) < 14)
-                    lbl_Shift.Text = "SHIFT 1";
-                else
-                    lbl_Shift.Text = "SHIFT 3";
+                //if (Convert.ToInt16(DateTime.Now.ToString("HH")) >= 14 && Convert.ToInt16(DateTime.Now.ToString("HH")) < 22)
+                //    lbl_Shift1.Text = "SHIFT 2";
+                //else if (Convert.ToInt16(DateTime.Now.ToString("HH")) >= 6 && Convert.ToInt16(DateTime.Now.ToString("HH")) < 14)
+                //    lbl_Shift1.Text = "SHIFT 1";
+                //else
+                //    lbl_Shift1.Text = "SHIFT 3";
             }
             catch
             {
@@ -419,8 +509,27 @@ namespace Smart_FTY
             {
                 if (this.Visible)
                 {
-                    
-                    _time = 59;                  
+                    _isLoad = true;
+                    lbl_dif1.Text = "";
+                    lbl_dif2.Text = "";
+                    lbl_dif3.Text = "";
+
+                    dtpDate.EditValue = DateTime.Now;
+
+                    if (Convert.ToInt16(DateTime.Now.ToString("HH")) >= 14 && Convert.ToInt16(DateTime.Now.ToString("HH")) < 22)
+                    {
+                        lbl_Shift_Click(lbl_Shift2, null);
+                    }
+                    else if (Convert.ToInt16(DateTime.Now.ToString("HH")) >= 6 && Convert.ToInt16(DateTime.Now.ToString("HH")) < 14)
+                    {
+                        lbl_Shift_Click(lbl_Shift1, null);
+                    }
+                    else
+                    {
+                        lbl_Shift_Click(lbl_Shift3, null);
+                    }
+                    loaddata(true);
+                    _time = 0;                  
                     timer1.Start();          
                 }
                 else
@@ -429,8 +538,14 @@ namespace Smart_FTY
                 }
                 
             }
-            catch (Exception)
-            {}
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                _isLoad = false;
+            }
         }
 
         private void axGrid_BeforeEditMode(object sender, AxFPSpreadADO._DSpreadEvents_BeforeEditModeEvent e)
@@ -445,6 +560,39 @@ namespace Smart_FTY
         {
             Smart_FTY.ComVar._frm_home.Show();
             this.Hide();
+        }
+
+        private void lbl_Shift_Click(object sender, EventArgs e)
+        {
+            Control cmd = (Control)sender;
+            foreach (Control ctr in pnShift.Controls)
+            {
+                if (!ctr.Name.Contains("lbl_Shift")) continue;
+                if (ctr.Name == cmd.Name)
+                {
+                    cmd.BackColor = Color.DodgerBlue;
+                    cmd.ForeColor = Color.White;
+                    _shift = cmd.Tag.ToString();
+                    if (!_isLoad)
+                    {
+                        loaddata(false);
+                    }
+                    _time = 0;
+                }
+                else
+                {
+                    ctr.BackColor = Color.Gray;
+                    ctr.ForeColor = Color.White;
+                }
+            }
+        }
+
+        private void dtpDate_EditValueChanged(object sender, EventArgs e)
+        {
+            if (_isLoad) return;
+
+            loaddata(true);
+            _time = 0;
         }
 
 
