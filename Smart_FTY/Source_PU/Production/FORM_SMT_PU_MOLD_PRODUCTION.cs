@@ -17,9 +17,6 @@ using System.Threading;
 
 namespace Smart_FTY
 {
-
-    
-
     public partial class FORM_SMT_PU_MOLD_PRODUCTION : Form
     {
         public FORM_SMT_PU_MOLD_PRODUCTION()
@@ -34,6 +31,8 @@ namespace Smart_FTY
         int _iCount = 0, _iColor =0;
         int _countP = 0, _countN = 0, _countR = 0, _countNU = 0;
         DataTable _dt_layout = null;
+        string _shift = "1";
+        bool _isLoad = true;
        // FORM_MOLD_PRODUCTION_POP_NEXT _pop_change = new FORM_MOLD_PRODUCTION_POP_NEXT();
        // FORM_MOLD_PRODUCTION_POP _pop_alarm = new FORM_MOLD_PRODUCTION_POP();
         Dictionary<string, string> _dicChange = new Dictionary<string, string>();
@@ -95,6 +94,7 @@ namespace Smart_FTY
             lblNoPlan.Text = "No Plan: " + _countN  + " set";
             lblMoldChange.Text = "Mold Change: " + _countR + " set";
             lblNoUse.Text = "No Use: " + _countNU + " set";
+            
         }
         private void DisplayGrid(DataTable arg_dt, AxFPSpreadADO.AxfpSpread arg_grid)
         {
@@ -252,7 +252,7 @@ namespace Smart_FTY
                // if (_dt_layout.Rows[idt]["line"].ToString() == "2" && _dt_layout.Rows[idt]["l_R"].ToString() == "1") iColTemp = icol;
               //  else 
            
-                    iColTemp = icol + 1;
+                iColTemp = icol + 1;
                 axGrid.Col = iColTemp;
                 axGrid.Text = _dt_layout.Rows[idt]["MOLD_SIZE_CD"].ToString();
                 if (_dt_layout.Rows[idt]["USE_YN"].ToString() == "Y")
@@ -380,12 +380,12 @@ namespace Smart_FTY
             {}          
         }
 
-        public void loaddata( bool arg_status)
+        public void loaddata()
         {
             try
             {
-                
-                if (_dt_layout == null) _dt_layout = SEL_APS_PLAN_ACTUAL();
+                axGrid.Visible = false;
+                _dt_layout = SEL_APS_PLAN_ACTUAL(_shift);
                 DisplayGrid(_dt_layout, axGrid);
                 setgrird();
                 
@@ -404,7 +404,6 @@ namespace Smart_FTY
         {
             try
             {
-
                 DataTable _dt_layout_auto = null;
                 DataTable _dt_layout_manu = null;
                 DataTable _dt_layout_1 = SEL_LAYOUT().Tables[0];
@@ -508,27 +507,33 @@ namespace Smart_FTY
         #endregion Fuction
 
         #region DB
-        public DataTable SEL_APS_PLAN_ACTUAL()
+        public DataTable SEL_APS_PLAN_ACTUAL(string argShift)
         {
             COM.OraDB MyOraDB = new COM.OraDB();
             System.Data.DataSet ds_ret;
 
             try
             {
-                string process_name = "PKG_SPB_MOLD_WMS_V2.SEL_MOLD_PRODUCTION_LAYOUT";
+                string process_name = "PKG_SPB_MOLD_WMS_V2.SEL_MOLD_PROD_LAYOUT_SHIFT";
 
-                MyOraDB.ReDim_Parameter(2);
+                MyOraDB.ReDim_Parameter(4);
                 MyOraDB.Process_Name = process_name;
 
 
                 MyOraDB.Parameter_Name[0] = "ARG_WH_CD";
-                MyOraDB.Parameter_Name[1] = "OUT_CURSOR";
+                MyOraDB.Parameter_Name[1] = "ARG_DATE";
+                MyOraDB.Parameter_Name[2] = "ARG_SHIFT";
+                MyOraDB.Parameter_Name[3] = "OUT_CURSOR";
 
                 MyOraDB.Parameter_Type[0] = (int)OracleType.VarChar;
-                MyOraDB.Parameter_Type[1] = (int)OracleType.Cursor;
+                MyOraDB.Parameter_Type[1] = (int)OracleType.VarChar;
+                MyOraDB.Parameter_Type[2] = (int)OracleType.VarChar;
+                MyOraDB.Parameter_Type[3] = (int)OracleType.Cursor;
 
                 MyOraDB.Parameter_Values[0] = "50";
-                MyOraDB.Parameter_Values[1] = "";
+                MyOraDB.Parameter_Values[1] = dtpDate.DateTime.ToString("yyyyMMdd");
+                MyOraDB.Parameter_Values[2] = argShift;
+                MyOraDB.Parameter_Values[3] = "";
 
                 MyOraDB.Add_Select_Parameter(true);
                 ds_ret = MyOraDB.Exe_Select_Procedure();
@@ -637,18 +642,17 @@ namespace Smart_FTY
                 _time++;
                 if (_time == 60)
                 {
-                    _dt_layout = SEL_APS_PLAN_ACTUAL();
-                    loaddata(true);
+                    loaddata();
                     _time = 0;
                 }
 
 
-                if (Convert.ToInt16(DateTime.Now.ToString("HH")) >= 14 && Convert.ToInt16(DateTime.Now.ToString("HH")) < 22)
-                    lblShift.Text = "SHIFT 2";
-                else if (Convert.ToInt16(DateTime.Now.ToString("HH")) >= 6 && Convert.ToInt16(DateTime.Now.ToString("HH")) < 14)
-                    lblShift.Text = "SHIFT 1";
-                else
-                    lblShift.Text = "SHIFT 3";
+                //if (Convert.ToInt16(DateTime.Now.ToString("HH")) >= 14 && Convert.ToInt16(DateTime.Now.ToString("HH")) < 22)
+                //    lblShift.Text = "SHIFT 2";
+                //else if (Convert.ToInt16(DateTime.Now.ToString("HH")) >= 6 && Convert.ToInt16(DateTime.Now.ToString("HH")) < 14)
+                //    lblShift.Text = "SHIFT 1";
+                //else
+                //    lblShift.Text = "SHIFT 3";
             }
             catch
             {
@@ -668,7 +672,23 @@ namespace Smart_FTY
             {
                 if (this.Visible)
                 {
+                    dtpDate.EditValue = DateTime.Now;
                     setDefaultGrid(axGrid);
+                    _isLoad = true;
+
+                    if (Convert.ToInt16(DateTime.Now.ToString("HH")) >= 14 && Convert.ToInt16(DateTime.Now.ToString("HH")) < 22)
+                    {
+                        lbl_Shift_Click(lbl_Shift2, null);
+                    }
+                    else if (Convert.ToInt16(DateTime.Now.ToString("HH")) >= 6 && Convert.ToInt16(DateTime.Now.ToString("HH")) < 14)
+                    {
+                        lbl_Shift_Click(lbl_Shift1, null);
+                    }
+                    else
+                    {
+                        lbl_Shift_Click(lbl_Shift3, null);
+                    }
+                    loaddata();
                     //Form_Main._bStatus = true;
                     _time = 59;
                     timer1.Start();
@@ -745,13 +765,41 @@ namespace Smart_FTY
                 e.Appearance.ForeColor = Color.Black;
             }
         }
-
-       
-
-        
-
-       
-     
-
+        private void lbl_Shift_Click(object sender, EventArgs e)
+        {
+            Control cmd = (Control)sender;
+            foreach (Control ctr in pnShift.Controls)
+            {
+                if (!ctr.Name.Contains("lbl_Shift")) continue;
+                if (ctr.Name == cmd.Name)
+                {
+                    cmd.BackColor = Color.DodgerBlue;
+                    cmd.ForeColor = Color.White;
+                    _shift = cmd.Tag.ToString();
+                    if (_isLoad)
+                    {
+                        loaddata();
+                    }
+                    _time = 0;
+                }
+                else
+                {
+                    ctr.BackColor = Color.Gray;
+                    ctr.ForeColor = Color.White;
+                }
+            }
+        }
+        private void dtpDate_EditValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                loaddata();
+                _time = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
