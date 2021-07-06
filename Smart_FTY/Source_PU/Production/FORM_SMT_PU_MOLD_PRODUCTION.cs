@@ -105,9 +105,10 @@ namespace Smart_FTY
                 _countR = 0;
                 _countNU = 0;
                 arg_grid.Visible = false;
-                if (arg_dt == null || arg_dt.Rows.Count == 0) return;
-                // axGrid.ClearRange(0, 0, 50, 50, true);
+                axGrid.ClearRange(0, 0, 50, 50, true);
                 create_default();
+                if (arg_dt == null || arg_dt.Rows.Count == 0) return;
+               
                 _Loc_change.Clear();
                 int row_s = 2;
                 int irow = row_s;
@@ -376,21 +377,23 @@ namespace Smart_FTY
                 if (_iColor == 3) _iColor = 0;
                 else _iColor++;
             }
-            catch (Exception)
-            {}          
+            catch
+            {
+
+            }          
         }
 
         public void loaddata()
         {
             try
             {
-                axGrid.Visible = false;
                 _dt_layout = SEL_APS_PLAN_ACTUAL(_shift);
-                DisplayGrid(_dt_layout, axGrid);
                 setgrird();
-                
+                axGrid.Hide();
+                DisplayGrid(_dt_layout, axGrid);
+                axGrid.Show();
             }
-            catch (Exception)
+            catch 
             { }
             finally
             {
