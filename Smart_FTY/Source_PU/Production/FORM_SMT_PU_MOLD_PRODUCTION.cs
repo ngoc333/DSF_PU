@@ -409,11 +409,11 @@ namespace Smart_FTY
             {
                 DataTable _dt_layout_auto = null;
                 DataTable _dt_layout_manu = null;
-                DataTable _dt_layout_1 = SEL_LAYOUT().Tables[0];
-                DataTable _dt_layout_2 = SEL_LAYOUT().Tables[1];
+                DataTable _dt_layout_1 = SEL_LAYOUT(_shift).Tables[0];
+                //DataTable _dt_layout_2 = SEL_LAYOUT(_shift).Tables[1];
 
-                _dt_layout_auto = SEL_APS_PLAN_ACTUAL_PU("AUTO");
-                _dt_layout_manu = SEL_APS_PLAN_ACTUAL_PU("MANUAL");
+                _dt_layout_auto = SEL_APS_PLAN_ACTUAL_PU("AUTO", _shift);
+                _dt_layout_manu = SEL_APS_PLAN_ACTUAL_PU("MANUAL", _shift);
 
                 if(_dt_layout_auto != null)
                 grdviewAUTO.DataSource = _dt_layout_auto;
@@ -551,7 +551,7 @@ namespace Smart_FTY
         }
 
 
-        public DataSet SEL_LAYOUT()
+        public DataSet SEL_LAYOUT(string argShift)
         {
             COM.OraDB MyOraDB = new COM.OraDB();
             System.Data.DataSet ds_ret;
@@ -560,21 +560,27 @@ namespace Smart_FTY
             {
                 string process_name = "PKG_SPB_MOLD_WMS_V2.SEL_MOLD_LAYOUT_DETAIL";
 
-                MyOraDB.ReDim_Parameter(3);
+                MyOraDB.ReDim_Parameter(5);
                 MyOraDB.Process_Name = process_name;
 
 
                 MyOraDB.Parameter_Name[0] = "ARG_TYPE";
-                MyOraDB.Parameter_Name[1] = "OUT_CURSOR";
-                MyOraDB.Parameter_Name[2] = "OUT_CURSOR2";
+                MyOraDB.Parameter_Name[1] = "ARG_DATE";
+                MyOraDB.Parameter_Name[2] = "ARG_SHIFT";
+                MyOraDB.Parameter_Name[3] = "OUT_CURSOR";
+                MyOraDB.Parameter_Name[4] = "OUT_CURSOR2";
 
                 MyOraDB.Parameter_Type[0] = (int)OracleType.VarChar;
-                MyOraDB.Parameter_Type[1] = (int)OracleType.Cursor;
-                MyOraDB.Parameter_Type[2] = (int)OracleType.Cursor;
+                MyOraDB.Parameter_Type[1] = (int)OracleType.VarChar;
+                MyOraDB.Parameter_Type[2] = (int)OracleType.VarChar;
+                MyOraDB.Parameter_Type[3] = (int)OracleType.Cursor;
+                MyOraDB.Parameter_Type[4] = (int)OracleType.Cursor;
 
                 MyOraDB.Parameter_Values[0] = "";
-                MyOraDB.Parameter_Values[1] = "";
-                MyOraDB.Parameter_Values[2] = "";
+                MyOraDB.Parameter_Values[1] = dtpDate.DateTime.ToString("yyyyMMdd");
+                MyOraDB.Parameter_Values[2] = argShift;
+                MyOraDB.Parameter_Values[3] = "";
+                MyOraDB.Parameter_Values[4] = "";
 
                 MyOraDB.Add_Select_Parameter(true);
                 ds_ret = MyOraDB.Exe_Select_Procedure();
@@ -589,7 +595,7 @@ namespace Smart_FTY
             }
         }
 
-        public DataTable SEL_APS_PLAN_ACTUAL_PU(string TYPE)
+        public DataTable SEL_APS_PLAN_ACTUAL_PU(string TYPE, string argShift)
         {
             COM.OraDB MyOraDB = new COM.OraDB();
             System.Data.DataSet ds_ret;
@@ -598,18 +604,24 @@ namespace Smart_FTY
             {
                 string process_name = "PKG_SPB_MOLD_WMS_V2.SEL_MOLD_PRODUCTION_LAYOUT_PU";
 
-                MyOraDB.ReDim_Parameter(2);
+                MyOraDB.ReDim_Parameter(4);
                 MyOraDB.Process_Name = process_name;
 
 
                 MyOraDB.Parameter_Name[0] = "ARG_MACHINE_TYPE";
-                MyOraDB.Parameter_Name[1] = "OUT_CURSOR";
+                MyOraDB.Parameter_Name[1] = "ARG_DATE";
+                MyOraDB.Parameter_Name[2] = "ARG_SHIFT";
+                MyOraDB.Parameter_Name[3] = "OUT_CURSOR";
 
                 MyOraDB.Parameter_Type[0] = (int)OracleType.VarChar;
-                MyOraDB.Parameter_Type[1] = (int)OracleType.Cursor;
+                MyOraDB.Parameter_Type[1] = (int)OracleType.VarChar;
+                MyOraDB.Parameter_Type[2] = (int)OracleType.VarChar;
+                MyOraDB.Parameter_Type[3] = (int)OracleType.Cursor;
 
                 MyOraDB.Parameter_Values[0] = TYPE;
-                MyOraDB.Parameter_Values[1] = "";
+                MyOraDB.Parameter_Values[1] = dtpDate.DateTime.ToString("yyyyMMdd");
+                MyOraDB.Parameter_Values[2] = argShift;
+                MyOraDB.Parameter_Values[3] = "";
 
                 MyOraDB.Add_Select_Parameter(true);
                 ds_ret = MyOraDB.Exe_Select_Procedure();
