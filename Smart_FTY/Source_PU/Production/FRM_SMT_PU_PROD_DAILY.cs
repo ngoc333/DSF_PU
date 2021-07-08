@@ -180,8 +180,10 @@ namespace Smart_FTY
                 }
                 this.Cursor = Cursors.Default;
             }
-            catch
-            { this.Cursor = Cursors.Default; }
+            catch (Exception ex)
+            { 
+                this.Cursor = Cursors.Default; 
+            }
             
             //axfpSpread.MaxRows = 2;
             //if (dtsource != null && dtsource.Rows.Count > 0)

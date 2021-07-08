@@ -220,7 +220,7 @@ namespace Smart_FTY
                 }
                 arg_grid.MaxCols = icol + 3;
             }
-            catch
+            catch (Exception ex)
             { }
             finally
             {
@@ -291,7 +291,7 @@ namespace Smart_FTY
 
 
             }
-            catch
+            catch (Exception ex)
             { }
 
         }
@@ -342,7 +342,7 @@ namespace Smart_FTY
                 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             { }
 
         }
