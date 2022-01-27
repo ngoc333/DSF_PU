@@ -162,8 +162,8 @@ namespace Smart_FTY
                 //Human Resource
                 if (ds.Tables[8] != null && ds.Tables[8].Rows.Count > 0)
                     chartHr(ds.Tables[8], chartHrDMC, lblTotalAbsentPour);
-                if (ds.Tables[9] != null && ds.Tables[9].Rows.Count > 0)
-                    chartHr(ds.Tables[9], chartHrDMP, lblTotalAbsentSpray);
+                //if (ds.Tables[9] != null && ds.Tables[9].Rows.Count > 0)
+                //    chartHr(ds.Tables[9], chartHrDMP, lblTotalAbsentSpray);
             }
             catch 
             {
